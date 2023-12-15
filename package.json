@@ -1,0 +1,26 @@
+{
+  "name": "brown-box-studio-portfolio",
+  "version": "1.0.0",
+  "description": "A versatile portfolio website with a blend of creative projects, insightful blog posts, and modern web technologies.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joe-gutman/Brown-Box-Studio-Portfolio.git"
+  },
+  "keywords": [
+    "portfolio",
+    "html",
+    "css",
+    "javascript",
+    "website"
+  ],
+  "author": "Joe Gutman",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/joe-gutman/Brown-Box-Studio-Portfolio/issues"
+  },
+  "homepage": "https://github.com/joe-gutman/Brown-Box-Studio-Portfolio#readme"
+}
