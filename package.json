@@ -1,26 +1,36 @@
 {
-  "name": "brown-box-studio-portfolio",
-  "version": "1.0.0",
-  "description": "A versatile portfolio website with a blend of creative projects, insightful blog posts, and modern web technologies.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/joe-gutman/Brown-Box-Studio-Portfolio.git"
-  },
-  "keywords": [
-    "portfolio",
-    "html",
-    "css",
-    "javascript",
-    "website"
-  ],
-  "author": "Joe Gutman",
-  "license": "UNLICENSED",
-  "bugs": {
-    "url": "https://github.com/joe-gutman/Brown-Box-Studio-Portfolio/issues"
-  },
-  "homepage": "https://github.com/joe-gutman/Brown-Box-Studio-Portfolio#readme"
+    "name": "brown-box-studio-portfolio",
+    "version": "1.0.0",
+    "description": "A versatile portfolio website with a blend of creative projects, insightful blog posts, and modern web technologies.",
+    "main": "index.js",
+    "scripts": {
+        "start": "cd backend && nodemon server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/joe-gutman/Brown-Box-Studio-Portfolio.git"
+    },
+    "keywords": [
+        "portfolio",
+        "html",
+        "css",
+        "javascript",
+        "website"
+    ],
+    "author": "Joe Gutman",
+    "license": "UNLICENSED",
+    "bugs": {
+        "url": "https://github.com/joe-gutman/Brown-Box-Studio-Portfolio/issues"
+    },
+    "homepage": "https://github.com/joe-gutman/Brown-Box-Studio-Portfolio#readme",
+    "workspaces": [
+        "backend",
+        "frontend"
+    ],
+    "private": true,
+    "dependencies": {
+        "mongoose": "^8.0.3",
+        "nodemon": "^3.0.2"
+    }
 }
