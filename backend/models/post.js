@@ -10,8 +10,7 @@ const postSchema = new mongoose.Schema({
         required: true,
     },
     author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: true,
 
     },
@@ -23,10 +22,6 @@ const postSchema = new mongoose.Schema({
     likes: {
         type:Number,
         default: 0,
-    },
-    topic: {
-        type: [String],
-        default: [],
     },
     body: [{
         type: {
@@ -48,7 +43,11 @@ const postSchema = new mongoose.Schema({
     views: {
         type: Number,
         default: 0,
-    }
+    },
+    wordCount: {
+        type: Number,
+        default: 0,
+    },
 });
 
 module.exports = mongoose.model('Post', postSchema)

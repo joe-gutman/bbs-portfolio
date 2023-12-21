@@ -6,9 +6,9 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    hashedPassword: {
+    password: {
         type: String,
-        required: true
+        required: true,
     },
     registrationDate: {
         type: Date,
@@ -29,13 +29,18 @@ const userSchema = new mongoose.Schema({
     },
     website: String,
     role: [{
-        type: mongoose.Schema.Types.ObjectID,
-        ref: 'Role',
+        type: [String],
+        default: [],
     }],
     securityQuestions: {
         type: Map,
         of: String,
-    }
+    },
+    loginHistory: {
+        type:[Date],
+        default: [],    
+    },
+    refreshToken: String,
 });
 
 module.exports = mongoose.model('User', userSchema);
