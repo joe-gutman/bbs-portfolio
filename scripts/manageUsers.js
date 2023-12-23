@@ -1,4 +1,5 @@
 const readline = require('readline');
+const mongoose = require('mongoose');
 const User = require('backend/models/user.js');
 const Role = require('backend/models/role.js');
 const { callbackify } = require('util');
@@ -8,6 +9,24 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
+
+const connectDB = async () => {
+    try {
+        await mongoose.connect('mongodb://localhost:27017/mydatabase', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false,
+            useCreateIndex: true
+        });
+        console.log('MongoDB Connected...');
+        search();
+    } catch (err) {
+        console.error(err.message);
+        // Exit process with failure
+        process.exit(1);
+    }
+};
+
 const formatQuestionChoices = (question, choices) => {
     question += choices.map((choice, index) => `\n${index + 1}. ${choice}`).join('');
     return question;
@@ -15,7 +34,7 @@ const formatQuestionChoices = (question, choices) => {
 
 const deleteUser = (user) => {
     // ask if they're sure, tell them it cant be undone
-    rl.question(`Are you sure you want to delete ${user.username}? This cannot be undone. (y/n)`, async (answer) => {
+    rl.question(`Are you sure you want to delete ${user.username}? This cannot be undone. (y/n): `, async (answer) => {
         try {
             if (answer === 'y') {
                 await User.deleteOne({_id: user._id})
@@ -89,10 +108,8 @@ const removeRole = async (user) => {
     }
 };
 
-
-
 const promptUserAction = (user) => {
-    const actions = [ ['delete user',deleteUser], ['assign role', assignRole], ['remove role', removeRole] ];
+    const actions = [ ['delete user', deleteUser], ['assign role', assignRole], ['remove role', removeRole] ];
     const question = formatQuestionChoices('Enter the number of action you would like to perform:', actions.map(action => action[0]));
 
     rl.question(question, (actionNumber) => {
@@ -105,7 +122,6 @@ const promptUserAction = (user) => {
         action(user);
     });
 };
-
 
 const chooseUser = (users) => {
     rl.question('Enter the number of the user you would like to manage: ', (userNumber) => {
@@ -120,24 +136,27 @@ const chooseUser = (users) => {
     });
 };
 
-
 const search = () => {
-    rl.question('Search for the user you would like to manage. You can search by: \n-username \n-email \n-first name \n-last name \n-roles ', async (search) => {
+    rl.question('Search for the user you would like to manage. You can search by: (username, email, first name, last name, roles) \n', async (search) => {
         try {
-            const users = await User.find({$or: [
-                {username: search},
-                {email: search},
-                {firstName: search},
-                {lastName: search},
-                {roles: search},
-            ]});
+            const fields = ['username', 'email', 'firstName', 'lastName', 'roles'];
+            let users = [];
+            let matchedField = '';
+
+            for (const field of fields) {
+                users = await User.find({ [field]: search });
+                if (users.length > 0) {
+                    matchedField = field;
+                    break;
+                }
+            }
 
             if (users.length === 0) {
                 console.log('No users found.');
                 rl.close();
                 return;
             } if (users.length === 1) {
-                rl.question(`1 user found: ${users[0].username}. Would like to manage this user? (y/n)`, (answer) => {
+                rl.question(`1 user found: ${users[0].username}. Would like to manage this user? (y/n) :`, (answer) => {
                     if (answer === 'y') {
                         promptUserAction(users[0]);
                         return;
@@ -150,7 +169,7 @@ const search = () => {
     
             for (let i = 0; i < users.length; i++) {
                 const padding = ' '.repeat((i + 1).toString().length); 
-                console.log(`${i + 1}. username: ${users[i].username} \n${padding} email: ${users[i].email} \n${padding} first name: ${users[i].firstName} \n${padding} last name: ${users[i].lastName}`);
+                console.log(`${i + 1}. username: ${users[i].username} ${padding} email: ${users[i].email} \n${padding} first name: ${users[i].firstName} \n${padding} last name: ${users[i].lastName} \n`);
             }
     
             chooseUser(users);
@@ -161,4 +180,4 @@ const search = () => {
     });
 };
 
-search();
+connectDB();

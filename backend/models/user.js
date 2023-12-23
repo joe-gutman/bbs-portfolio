@@ -10,8 +10,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    firstName: String,
-    lastName: String,
+    firstName:{
+        type: String,
+        required: true,
+    },
+    lastName: {
+        type: String,
+        required: true,
+    },
     registrationDate: {
         type: Date,
         default: Date.now,
@@ -26,7 +32,7 @@ const userSchema = new mongoose.Schema({
     },
     birthday: {
         type: Date,
-        type: required,
+        required: true,
     },
     about: String,
     socialMedia: {
