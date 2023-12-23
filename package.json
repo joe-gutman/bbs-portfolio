@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "start": "cd backend && nodemon server.js",
-        "test": "jest --verbose ./backend"
+        "test": "jest --verbose ./backend",
+        "open:github": "node -e 'import(\"open\").then(open => open.default(\"https://github.com/joe-gutman/Brown-Box-Studio-Portfolio.git\"))'"
     },
     "repository": {
         "type": "git",
@@ -31,5 +32,8 @@
     "private": true,
     "dependencies": {
         "nodemon": "^3.0.2"
+    },
+    "devDependencies": {
+        "open": "^10.0.0"
     }
 }

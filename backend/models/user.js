@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    email: {
+        type: String,
+        required: true,
+    },
     name: {
         type: String,
         required: true,
@@ -28,19 +32,27 @@ const userSchema = new mongoose.Schema({
         default: [];
     },
     website: String,
-    role: [{
+    sitePermissions: [{
         type: [String],
         default: [],
     }],
-    securityQuestions: {
-        type: Map,
-        of: String,
-    },
     loginHistory: {
         type:[Date],
         default: [],    
     },
     refreshToken: String,
+    verificationToken: {
+        type: String,
+        default: null,
+    },
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
+    resetToken: {
+        type: String,
+        default: null,
+    },
 });
 
 module.exports = mongoose.model('User', userSchema);

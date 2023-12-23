@@ -14,7 +14,9 @@
     "mongoose": "^8.0.3",
     "marked": "^11.1.0",
     "jsdom": "^23.0.1",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.7"
+
   },
   "devDependencies": {
     "dotenv": "^16.3.1",
