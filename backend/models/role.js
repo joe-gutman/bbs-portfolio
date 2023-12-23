@@ -1,18 +1,18 @@
-const  mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const roleSchema = new mongoose.Schema({
-    rolename: {
+    roleName: {
         type: String,
         required: true
     },
     description: {
         type: String,
     },
-    permissions: [{
-        type: String,
-        enum: ['createPost','editPost','deletePost', 'editWebText'],
-    }]
+    permissions: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Permission',
+        default: []
+    }
 });
 
 module.exports = mongoose.model('Role', roleSchema);
-

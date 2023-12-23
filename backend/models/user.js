@@ -10,6 +10,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    firstName: String,
+    lastName: String,
     registrationDate: {
         type: Date,
         default: Date.now,
@@ -28,13 +30,13 @@ const userSchema = new mongoose.Schema({
     },
     about: String,
     socialMedia: {
-        type: [String]
-        default: [];
+        type: [String],
+        default: []
     },
     website: String,
-    sitePermissions: [{
-        type: [String],
-        default: [],
+    roles: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Role'
     }],
     loginHistory: {
         type:[Date],
