@@ -25,14 +25,14 @@ const isValidId = (id) => {
     mongoose.Types.ObjectId.isValid(id);
 };
 
-exports.getPost = async (req, res) => {
-    const _id = req.params.id;
-
-    if (!isValidId(_id)) {
-        return res.status(400).json({ error: 'Invalid Post ID' });
-    }
-
+exports.getPost = async (req, res) => { 
     try {
+        const _id = req.params.id;
+    
+        if (!isValidId(_id)) {
+            return res.status(400).json({ error: 'Invalid Post ID' });
+        }
+        
         const post = await Post.findOne({_id: _id});
 
         if (!post) {

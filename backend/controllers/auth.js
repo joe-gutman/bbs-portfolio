@@ -191,7 +191,7 @@ exports.registerUser = async (req, res) => {
         const username = req.body.username.trim();
         const password = req.body.password.trim();
 
-        const user = User.findOne({username: username});
+        const user = await User.findOne({username: username});
         if(user) {
             return handleError(res, 400, 'Username already in use.');
         }

@@ -4,9 +4,15 @@
     "description": "A versatile portfolio website with a blend of creative projects, insightful blog posts, and modern web technologies.",
     "main": "index.js",
     "scripts": {
-        "start": "cd backend && nodemon server.js",
-        "test": "jest --verbose ./backend",
-        "open:github": "node -e 'import(\"open\").then(open => open.default(\"https://github.com/joe-gutman/Brown-Box-Studio-Portfolio.git\"))'"
+        "start": "node -e 'require(\"./backend/server.js\")()'",
+        "test": "jest --verbose --detectOpenHandles ./backend",
+        "open:github": "node -e 'const open = require(\"open\"); open(\"https://github.com/joe-gutman/Brown-Box-Studio-Portfolio.git\");'",
+        "manage-roles": "node ./backend/scripts/manageRoles.js",
+        "manage-users": "node ./backend/scripts/manageUsers.js",
+        "manage-database": "node ./backend/scripts/manageDatabase/main.js"
+    },
+    "jest": {
+        "setupFilesAfterEnv": ["./backend/testSetup.js"]
     },
     "repository": {
         "type": "git",

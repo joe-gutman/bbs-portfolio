@@ -4,8 +4,6 @@ const bodyParser = require('body-parser');
 const { connectToDB } = require('./connection.js');
 require('dotenv').config();
 
-const port = process.env.PORT || 3000;
-
 const app = express();
 let server;
 
@@ -17,7 +15,7 @@ app.use(bodyParser.json());
 app.use('/', routes);
 
 
-async function startServer() {
+async function startServer(port = process.env.PORT || 3000) {
     try {
         await connectToDB();
         
@@ -29,9 +27,6 @@ async function startServer() {
     } catch (error) {
         console.error('Failed to start server:', error);
     }
-
 }
 
-const serverPromise = startServer();
-
-module.exports = serverPromise;
+module.exports = startServer;

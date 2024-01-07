@@ -8,11 +8,11 @@ const roleSchema = new mongoose.Schema({
     description: {
         type: String,
     },
-    permissions: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: 'Permission',
+    permissions: [{
+        type: String,
+        enum: ['createPost', 'deletePost', 'updatePost', 'createUser', 'deleteUser', 'updateUser', 'createComment', 'deleteComment', 'updateComment', 'createRole', 'deleteRole', 'updateRole', 'updateSiteContent'],
         default: []
-    }
+    }]
 });
 
 module.exports = mongoose.model('Role', roleSchema);
